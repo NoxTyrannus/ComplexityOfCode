@@ -1,0 +1,62 @@
+==============================================================================
+EXPERIMENT 1 — natural cross-repository variation (n=14 projects)
+==============================================================================
+axis A axis B   n  pearson  spearman
+    S1    Lcc  14   -0.175    -0.240
+    S1    Len  14   -0.160    +0.151
+    S2    Lcc  14   -0.880    -0.754
+    S2    Len  14   -0.557    -0.154
+    S1   Cexp  14   +0.088    +0.204
+     C    Lcc  14   +0.111    +0.176
+    S1    Lbd  14   -0.199    -0.059
+    S2    Lbd  14   -0.830    -0.503
+
+  leave-one-out r(S2, Lcc): min -0.920  max -0.630  (most influential: black, r=-0.630 without it)
+
+==============================================================================
+EXPERIMENT 2 — controlled structural perturbations
+==============================================================================
+ operator   n |           dS1%            dS2%         dC(pp)          dL(cc)  cons
+    dedup  14 |  -0.43+-0.95    -0.17+-0.29   +0.053+-0.199   +0.04+-0.29    1.00
+   facade  14 | -52.69+-20.12   +0.00+-0.00   +17.052+-25.738  +0.00+-0.00    0.81
+    guard  14 |  +0.00+-0.00    +0.00+-0.00   +0.000+-0.000  +22.59+-5.69    1.00
+ hardcode  14 |  +0.00+-0.00    +0.00+-0.00   +0.000+-0.000   +0.00+-0.00    1.00
+   inline  14 |  +0.00+-0.00    -1.63+-2.40   +0.000+-0.000   +0.29+-0.27    1.00
+    merge  14 |  -1.31+-2.68    -0.15+-0.56   +0.068+-0.262   +0.14+-0.40    0.93
+   unfold  14 |  +0.00+-0.00    -5.41+-4.90   +0.000+-0.000   +0.48+-0.39    1.00
+
+==============================================================================
+EXPERIMENT 3 — conservation: when structure falls, where does it go?
+==============================================================================
+ operator  fired  paid on L  paid on C  paid any  mean dS2%  mean dL
+   inline      6          6          0         6      -3.80    +0.33
+   unfold     11         10          0        10      -6.89    +0.50
+    dedup      6          3          1         4      -0.39    -0.09
+    merge      4          2          3         4      -0.52    +0.50
+   facade     14          0          8         8      +0.00    +0.00
+
+  conservation rate (structural reduction paid somewhere else):
+       inline  100.0%  (n=6)
+       unfold   90.9%  (n=11)
+        dedup   66.7%  (n=6)
+        merge  100.0%  (n=4)
+       facade   57.1%  (n=14)
+
+  paired test on `unfold` (n=11 cells that fired):
+    dS2  fell in 11/11 cells, rose in 0/11   Wilcoxon z=-2.93
+    dL   rose in 10/11 cells (median +0.38)
+    corr(dS2, dL) across cells = -0.741  (spearman -0.764)
+
+==============================================================================
+EXPERIMENT 4 — anti-gaming: naive scalar ranking vs constrained
+==============================================================================
+ operator edgeRank edgeScore equalRank         maxFanIn APIlost     feasible
+   facade        1   +0.5269         7    23.1->41.9          0       REJECT
+   unfold        2   +0.0541         1    23.1->23.1          0            1
+   inline        3   +0.0163         3    23.1->23.1          0            3
+    merge        4   +0.0146         5    23.1->22.8        101       REJECT
+    dedup        5   +0.0060         4    23.1->23.1          0            4
+ hardcode        6   -0.0000         2    23.1->23.1          0            2
+    guard        7   -0.0000         6    23.1->23.1          0            5
+
+wrote analysis.json
