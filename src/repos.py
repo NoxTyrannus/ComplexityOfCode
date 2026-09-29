@@ -1,0 +1,16 @@
+REPOS = {
+ 'anyio':       ('src/anyio',       'anyio'),
+ 'black':       ('src/black',       'black'),
+ 'click':       ('src/click',       'click'),
+ 'flask':       ('src/flask',       'flask'),
+ 'itsdangerous':('src/itsdangerous','itsdangerous'),
+ 'jinja':       ('src/jinja2',      'jinja2'),
+ 'jsonschema':  ('jsonschema',      'jsonschema'),
+ 'pytest':      ('src/_pytest',     '_pytest'),
+ 'requests':    ('src/requests',    'requests'),
+ 'setuptools':  ('setuptools',      'setuptools'),
+ 'sphinx':      ('sphinx',          'sphinx'),
+ 'tox':         ('src/tox',         'tox'),
+ 'urllib3':     ('src/urllib3',     'urllib3'),
+ 'werkzeug':    ('src/werkzeug',    'werkzeug'),
+}
